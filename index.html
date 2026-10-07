@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jurnal Trading</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Jurnal Trading</h1>
+    <div class="actions">
+      <button id="btnAdd" class="primary">Tambah transaksi</button>
+      <button id="btnCsv">Ekspor CSV</button>
+      <button id="btnJson">Cadangkan JSON</button>
+      <label class="btn" for="fileImport">Pulihkan JSON</label>
+      <input id="fileImport" type="file" accept="application/json" hidden>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats" id="stats" aria-label="Ringkasan performa"></section>
+
+    <section class="panel">
+      <h2>Kurva ekuitas</h2>
+      <div id="chart" class="chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="filters">
+        <h2>Riwayat transaksi</h2>
+        <input id="fSearch" type="search" placeholder="Cari simbol, strategi, catatan">
+        <select id="fResult">
+          <option value="">Semua hasil</option>
+          <option value="win">Profit</option>
+          <option value="loss">Loss</option>
+          <option value="open">Terbuka</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th><th>Simbol</th><th>Arah</th><th>Entry</th><th>Exit</th>
+              <th>Ukuran</th><th>P&amp;L</th><th>R</th><th>Strategi</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty" hidden>Belum ada transaksi. Klik “Tambah transaksi” untuk mencatat yang pertama.</p>
+    </section>
+  </main>
+
+  <dialog id="dlg">
+    <form id="form" method="dialog">
+      <h2 id="dlgTitle">Tambah transaksi</h2>
+      <div class="grid">
+        <label>Tanggal<input name="date" type="date" required></label>
+        <label>Simbol<input name="symbol" required placeholder="BTCUSDT, EURUSD, BBCA"></label>
+        <label>Arah
+          <select name="side"><option value="long">Long (beli)</option><option value="short">Short (jual)</option></select>
+        </label>
+        <label>Ukuran / lot<input name="size" type="number" step="any" min="0" required></label>
+        <label>Harga entry<input name="entry" type="number" step="any" required></label>
+        <label>Harga exit (kosongkan jika masih terbuka)<input name="exit" type="number" step="any"></label>
+        <label>Stop loss<input name="sl" type="number" step="any"></label>
+        <label>Take profit<input name="tp" type="number" step="any"></label>
+        <label>Biaya / fee<input name="fees" type="number" step="any" min="0" value="0"></label>
+        <label>Strategi<input name="strategy" placeholder="Breakout, pullback, ..."></label>
+        <label>Kondisi emosi
+          <select name="emotion">
+            <option value="">-</option><option>Tenang</option><option>Percaya diri</option>
+            <option>Ragu</option><option>FOMO</option><option>Takut</option><option>Serakah</option>
+          </select>
+        </label>
+      </div>
+      <label>Catatan &amp; evaluasi<textarea name="notes" rows="3" placeholder="Alasan masuk, apa yang berjalan baik, apa yang perlu diperbaiki"></textarea></label>
+      <div class="dlg-actions">
+        <button type="button" id="btnCancel">Batal</button>
+        <button type="submit" class="primary">Simpan transaksi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
